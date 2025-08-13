@@ -11,11 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class AccountController {
 
-	@Value("${location.name}")
-	private String locationName;
+	@Value("${server.port}")
+	private String port;
 
-	@GetMapping
+	@Value("${config.message}")
+	private String message;
+
+
+	@GetMapping("/config")
+	public String displayConfigMessage() {
+		return "account-service called successfully !!!, Property fetch from - " + message;
+	}
+
+	@GetMapping("/resttemplate")
 	public String displayMessage() {
-		return "account-service called successfully !!!, Property fetch from - " + locationName;
+		return "Account-Service called successfully By Rest Template !!! Port -" + port;
+
+	}
+
+	@GetMapping("/feign")
+	public String displayFeignClientMessage() {
+		return "Account-Service called successfully By Feign Client !!! Port -" + port;
+
 	}
 }
